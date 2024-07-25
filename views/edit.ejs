@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Note App</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center p-4">
+  <div class="w-full">
+    <a
+      href="/"
+      class="inline-block border border-white text-white py-2 px-4 rounded-md transition duration-300 mb-6 hover:bg-white hover:text-gray-900"
+      >Go back</a
+    >
+    <div class="bg-gray-800 shadow-lg rounded-lg p-6 mb-6">
+      <h1 class="text-3xl font-bold text-blue-400 mb-4"><%= title %></h1>
+      <form action="/edit/<%= title %>" method="POST" class="text-gray-200">
+        <div class="mb-4">
+          <label for="title" class="block text-blue-300 font-bold mb-2">Title</label>
+          <input type="text" name="title" id="title" placeholder="Your new title goes here .........." class="w-full py-2 px-3 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500 bg-gray-700" />
+        </div>
+        <div class="mb-6">
+          <label for="content" class="block text-blue-300 font-bold mb-2">Content</label>
+          <textarea name="content" id="content" class="w-full h-40 py-2 px-3 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500 bg-gray-700" placeholder="Your new content goes here ........"></textarea>
+        </div>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition duration-300">Save Changes</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

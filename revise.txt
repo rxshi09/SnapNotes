@@ -1,0 +1,128 @@
+ // -----------------------async function------------------------------//
+
+ async function abcd(){
+     var res = await fetch("http:universities.hipolabs.com/search?country=United+States");
+     var resp1 = await res.json();
+
+     console.log(resp1);
+ }
+
+ abcd();                                       
+
+// ------------------------Nodejs------------------------- //
+// 1) npm init 
+// 2) npm i express 
+
+const fs = require('node:fs/promises');
+
+fs.writeFile("hey.txt" , "heloo" , (err) =>{
+     if(err) console.err;
+     else console.log("done");
+ } 
+ );
+
+// ------------------------Dynamic Routing------------------------- //
+
+app.get('/edit/:username', function (req, res) {   // :username is the dynamic rouuting in this place 
+    console.log(req.params.username);
+  });
+
+// ------------------------MiddleWare in Nodejs ------------------------- //
+
+app.use(express.json());
+app.use(express.urlencoded({extended : true}));    // middleware is something that comes in middle of client and
+                                                   // server (.use => is used to create the middleware)
+
+// ------------------------FormHandling and Sesssion&Cookie in Nodejs ------------------------- //
+ 
+// 1) npm i cookie-parser 
+
+app.post('/create', function (req, res) {
+    fs.writeFile(`./files/${req.body.title.split(' ').join('')}.txt`,req.body.content,function(err){
+      res.redirect('/');
+      console.log(err);
+    })
+  })                                            // this is used for form handling (post method )
+
+  app.use(cookieParser());                      // Setting up the cookie and session : cookies and session helps 
+                                                // server to take the information of the user who r requesting for api this is also known as middleware  
+  app.use(session({
+    secret: 'your-secret-key',  // Replace with a secure key
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }   // Set to true if using HTTPS
+  }));
+  
+  // Set a cookie
+  app.get('/set-cookie', (req, res) => {
+    res.cookie('myCookie', 'cookieValue', { maxAge: 900000, httpOnly: true });
+    res.send('Cookie has been set');
+  });
+  
+  // Read a cookie
+  app.get('/get-cookie', (req, res) => {
+    const myCookie = req.cookies.myCookie;
+    res.send(`Cookie value: ${myCookie}`);
+  });
+  
+  // Set session data
+  app.get('/set-session', (req, res) => {
+    req.session.username = 'user123';
+    res.send('Session data has been set');
+  });
+  
+  // Read session data
+  app.get('/get-session', (req, res) => {
+    const username = req.session.username;
+    res.send(`Session data: ${username}`);
+  });
+
+
+// ---------------------MongoDb NoSql setup------------------------- //
+  
+const mongoose = require('mongoose');
+
+mongoose.connect(`mongodb://127.0.0.1:27017/mongo_practice`);
+
+const userSchema = mongoose.Schema({
+    name: String , 
+    username : String , 
+    email : String,
+})
+
+module.exports = mongoose.model("user" , userSchema);
+
+// ---------------------MongoDb NoSql operations------------------------- //
+
+app.get('/create',async (req,res)=>{
+let created_user = await userModel.create({
+    name: 'Rushikesh' , 
+    username : 'rxshi786',
+    email : 'rushikesh.khedekar22@spit.ac.in'
+});
+
+res.send(created_user);
+})
+app.get('/update',async (req,res)=>{
+
+    var updated_user = await userModel.findOneAndUpdate({name: 'Rushikesh'} , {name: 'Rushikesh Santosh Khedekar'} , {new : true})
+
+res.send(updated_user);
+})
+app.get('/read' , async (req,res)=>{
+    var read_user = await userModel.findOne({username : "rxshi786"});
+    res.send(read_user);
+})
+app.get('/delete' , async (req,res)=>{
+    var delete_user = await userModel.findOneAndDelete({username : "rxshi786"});
+    res.send(delete_user);
+})
+
+
+
+// ---------------------Socket.io boiler plate------------------------- //
+
+const http = require('http');
+const socketio = require('socket.io');
+const server = http.createServer(app);
+const io = socketio(server);

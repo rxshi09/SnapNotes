@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Note App</title>
+  </head>
+  <body class="bg-gray-900 text-white min-h-screen flex flex-col items-center  p-4">
+    <div class="w-full">
+      <a
+        href="/"
+        class="inline-block border border-white text-white py-2 px-4 rounded-md transition duration-300 mb-6 hover:bg-white hover:text-gray-900"
+        >Go back</a
+      >
+      <div class="bg-gray-800 shadow-lg rounded-lg p-6 mb-6">
+        <h1 class="text-3xl font-bold text-blue-400 mb-4"><%= title %></h1>
+        <div class="bg-gray-900 text-gray-200 p-4 rounded-lg font-mono overflow-y-auto max-h-48"><%= data %> </div>
+
+      </div>
+    </div>
+  </body>
+</html>
